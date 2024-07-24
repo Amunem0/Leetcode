@@ -2,34 +2,34 @@ Approach 1
 
 class Solution {
 public:
-    string getMappedNum(string num,vector<int>& mapping){
-        string mappedNum=" ";
-        for(int i=0;i<num.size();i++){
-            char ch=num[i];
-            int chToInt=ch-'0';
-            mappedNum+=to_string(mapping[chToInt]);
+    string getMappedNum(string num, vector<int>& mapping) {
+        string mappedNum = " ";
+        for (int i = 0; i < num.size(); i++) {
+            char ch = num[i];
+            int chToInt = ch - '0';
+            mappedNum += to_string(mapping[chToInt]);
         }
         return mappedNum;
     }
     vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
-        int n=nums.size();
-        vector<pair<int,int>>vec;
-        for(int i=0;i<n;i++){
-            string num=to_string(nums[i]);
-            string mappedStr=getMappedNum(num,mapping);
+        int n = nums.size();
+        vector<pair<int, int>> vec;
+        for (int i = 0; i < n; i++) {
+            string num = to_string(nums[i]);
+            string mappedStr = getMappedNum(num, mapping);
 
-            int mappedNum=stoi(mappedStr);
+            int mappedNum = stoi(mappedStr);
 
-            vec.push_back({mappedNum,i});
+            vec.push_back({mappedNum, i});
         }
-        sort(vec.begin(),vec.end());
+        sort(vec.begin(), vec.end());
 
-        vector<int>ans;
+        vector<int> ans;
 
-        for(int i=0;i<n;i++){
-            int originalInd=vec[i].second;
+        for (int i = 0; i < n; i++) {
+            int originalInd = vec[i].second;
             ans.push_back(nums[originalInd]);
         }
-        return ans;   
+        return ans;
     }
 };
