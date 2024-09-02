@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int chalkReplacer(vector<int>& chalk, int k) {
+        long long sum=accumulate(chalk.begin(),chalk.end(),0LL);
+
+        if(k>sum){
+            long long round=k/sum;
+            k=k-round*sum;
+        }
+
+        for(int i=0;i<chalk.size();i++){
+            if(k<chalk[i]){
+                return i;
+            }
+            k=k-chalk[i];
+        }
+        return 0;
+    }
+};
