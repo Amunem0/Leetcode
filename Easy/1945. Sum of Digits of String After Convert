@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int getLucky(string s, int k) {
+        string numericString="";
+        for(int i=0;i<s.size();i++){
+            int numericValue = s[i] - 'a' + 1;
+            numericString += to_string(numericValue);
+        }
+
+        while(k--){
+            int sum = 0;
+            for (char digit : numericString) {
+                sum += digit - '0';
+            }
+            numericString = to_string(sum);
+        }
+        return stoi(numericString);
+    }
+};
