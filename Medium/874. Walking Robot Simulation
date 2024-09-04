@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {
+        vector<vector<int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        vector<int> curPos = {0, 0};
+        int res = 0;
+        int curDir = 0;
+
+        // Create an unordered_map to store obstacles
+        unordered_map<int, unordered_set<int>> obstacleMap;
+        for (const auto& obstacle : obstacles) {
+            obstacleMap[obstacle[0]].insert(obstacle[1]);
+        }
+
+        for (int command : commands) {
+            if (command == -1) {
+                // Turn right
+                curDir = (curDir + 1) % 4;
+            } else if (command == -2) {
+                // Turn left
+                curDir = (curDir - 1);
+                if (curDir == -1) {
+                    curDir = 3;
+                }
+            } else {
+                // Move forward
+                vector<int> direction = directions[curDir];
+                for (int step = 0; step < command; ++step) {
+                    int nextX = curPos[0] + direction[0];
+                    int nextY = curPos[1] + direction[1];
+                    if (obstacleMap.count(nextX) &&
+                        obstacleMap[nextX].count(nextY)) {
+                        break;
+                    }
+                    curPos[0] = nextX;
+                    curPos[1] = nextY;
+                }
+                res = max(res, curPos[0] * curPos[0] + curPos[1] * curPos[1]);
+            }
+        }
+
+        return res;
+    }
+};
