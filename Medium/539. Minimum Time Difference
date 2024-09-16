@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int findMinDifference(vector<string>& timePoints) {
+          int n = timePoints.size();
+
+        // Vector to store the time in minutes
+        vector<int> minutes(n);
+
+        for (int i = 0; i < n; i++) {
+            string time = timePoints[i];
+
+            // Parse hours and minutes from the time string
+            string hours = time.substr(0, 2);
+            string mins = time.substr(3, 2);
+
+            int hourInt = stoi(hours);
+            int minuteInt = stoi(mins);
+
+            // Convert time to minutes and store it at the i-th index
+            minutes[i] = hourInt * 60 + minuteInt;
+        }
+
+        // Sort the times in minutes
+        sort(minutes.begin(), minutes.end());
+
+        int minMinutes = INT_MAX;
+
+        // Calculate the minimum difference between consecutive times
+        for (int i = 1; i < n; i++) {
+            minMinutes = min(minMinutes, minutes[i] - minutes[i - 1]);
+        }
+
+        // Check the difference between the last and first time (day wrap-around)
+        minMinutes = min(minMinutes, (24 * 60 - minutes[n - 1] + minutes[0]));
+
+        return minMinutes;
+    }
+};
