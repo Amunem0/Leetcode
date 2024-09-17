@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string s1, string s2) {
+        map<string,int>mp;
+        vector<string>ans;
+        string str;
+
+        string combinedString=s1+" "+s2;
+        
+        for(int i=0;i<combinedString.size();i++){
+            if(combinedString[i]==' '){
+                mp[str]++;
+                str="";
+            }
+            else{
+                str+=combinedString[i];
+            }
+        }
+        mp[str]++;
+        
+        for(auto i:mp){
+            if(i.second==1){
+                ans.push_back(i.first);
+            }
+        }
+        return ans;
+    }
+};
