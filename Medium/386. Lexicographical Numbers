@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void solve(int currentNum,int n,vector<int>&ans){
+        if(currentNum>n){
+            return;
+        }
+        ans.push_back(currentNum);
+        for(int append=0;append<=9;append++){
+            int newNum=(currentNum*10)+append;
+            if(newNum>n){
+                return;
+            }
+            solve(newNum,n,ans);
+        }
+    }
+    vector<int> lexicalOrder(int n) {
+        vector<int>ans;
+        for(int startNum=1;startNum<=9;startNum++){
+            solve(startNum,n,ans);
+        }
+        return ans;
+    }
+};
