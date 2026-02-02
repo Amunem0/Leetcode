@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minimumCost(vector<int>& nums) {
+        int n=nums.size();
+        int smallest=51;
+        int secSmallest=51;
+        for(int i=1;i<n;i++){
+            if(smallest>nums[i]){
+                secSmallest=smallest;
+                smallest=nums[i];
+            }
+            else if(nums[i]<secSmallest){
+                secSmallest=nums[i];
+            }
+        }
+        return nums[0]+smallest+secSmallest;
+    }
+};
